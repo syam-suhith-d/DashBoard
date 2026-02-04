@@ -47,7 +47,16 @@ docker-compose up --build
 *   **Backend API**: [http://localhost:8000](http://localhost:8000)
 *   **Swagger Docs**: [http://localhost:8000/docs](http://localhost:8000/docs)
 
-### 3. Manual Run (Development)
+### 3. Deploy to Render ☁️
+This project includes a `render.yaml` Blueprint for 1-click deployment.
+
+1.  Push this code to your GitHub repository.
+2.  Go to [dashboard.render.com/blueprints](https://dashboard.render.com/blueprints).
+3.  Click **New Blueprint Instance**.
+4.  Select your repository.
+5.  Click **Apply**. Render will automatically create the Database, Backend, and Frontend.
+
+### 4. Manual Run (Development)
 If you prefer running services individually:
 
 **Backend**

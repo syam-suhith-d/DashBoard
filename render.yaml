@@ -1,0 +1,41 @@
+services:
+  # Backend Service (Python/FastAPI)
+  - type: web
+    name: dashboard-backend
+    runtime: docker
+    dockerContext: .
+    dockerfilePath: ./backend/Dockerfile
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: dashboard-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: BACKEND_CORS_ORIGINS
+        value: '["*"]' # Allow all for simplicity in demo, restrict in real prod
+    plan: free
+
+  # Frontend Service (Next.js)
+  - type: web
+    name: dashboard-frontend
+    runtime: docker
+    dockerContext: .
+    dockerfilePath: ./frontend/Dockerfile
+    envVars:
+      - key: NEXT_PUBLIC_API_URL
+        fromService:
+          type: web
+          name: dashboard-backend
+          property: url
+          envVarKey: NEXT_PUBLIC_API_URL # Passes as build arg/env
+    plan: free
+
+databases:
+  - name: dashboard-db
+    plan: free
+    version: "15"
+    databaseName: dashboard_db
+    user: postgres
+
+version: "1"
