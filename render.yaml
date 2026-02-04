@@ -3,7 +3,7 @@ services:
   - type: web
     name: dashboard-backend
     runtime: docker
-    dockerContext: .
+    dockerContext: ./backend
     dockerfilePath: ./backend/Dockerfile
     envVars:
       - key: DATABASE_URL
@@ -20,7 +20,7 @@ services:
   - type: web
     name: dashboard-frontend
     runtime: docker
-    dockerContext: .
+    dockerContext: ./frontend
     dockerfilePath: ./frontend/Dockerfile
     envVars:
       - key: NEXT_PUBLIC_API_URL
