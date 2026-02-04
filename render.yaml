@@ -28,13 +28,11 @@ services:
           type: web
           name: dashboard-backend
           property: url
-          envVarKey: NEXT_PUBLIC_API_URL # Passes as build arg/env
     plan: free
 
 databases:
   - name: dashboard-db
     plan: free
     databaseName: dashboard_db
-    user: postgres
 
 version: "1"
