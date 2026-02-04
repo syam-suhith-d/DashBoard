@@ -1,0 +1,268 @@
+@use "sass:color";
+
+// =====================
+// Theme Variables (CSS Properties)
+// =====================
+:root {
+  --primary: #4F46E5;
+  --primary-hover: #{color.adjust(#4F46E5, $lightness: -5%)};
+  --secondary: #EC4899;
+
+  // Light Mode Defaults
+  --bg-body: #f8fafc;
+  --bg-card: #ffffff;
+  --text-main: #1f2937;
+  --text-muted: #6b7280;
+  --border-color: #e5e7eb;
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  --sidebar-bg: #111827;
+  --navbar-bg: #ffffff;
+}
+
+[data-theme='dark'] {
+  // Dark Mode Overrides
+  --bg-body: #0f172a; // Slate-950
+  --bg-card: #1e293b; // Slate-800
+  --text-main: #f3f4f6; // Gray-100
+  --text-muted: #9ca3af; // Gray-400
+  --border-color: #374151; // Gray-700
+  --glass-bg: rgba(30, 41, 59, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  --navbar-bg: #1e293b;
+  --sidebar-bg: #020617; // Very dark slate
+  color-scheme: dark;
+}
+
+// Bootstrap Overrides
+body {
+  background-color: var(--bg-body);
+  color: var(--text-main);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.card {
+  background-color: var(--bg-card);
+  border-color: var(--border-color);
+  color: var(--text-main);
+}
+
+.text-dark {
+  color: var(--text-main) !important;
+}
+
+.text-muted {
+  color: var(--text-muted) !important;
+}
+
+.bg-light {
+  background-color: var(--bg-body) !important;
+}
+
+.bg-white {
+  background-color: var(--bg-card) !important;
+}
+
+// =====================
+// Custom Classes
+// =====================
+
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: 1rem;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+  border: none;
+  color: white;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background: linear-gradient(135deg, var(--primary-hover), var(--primary));
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.btn-icon {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  background-color: transparent;
+  color: var(--text-muted);
+  transition: all 0.2s;
+  border: 1px solid transparent;
+
+  &:hover {
+    background-color: rgba(79, 70, 229, 0.1);
+    color: var(--primary);
+  }
+
+  &.btn-icon-danger:hover {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #ef4444; // Red-500
+  }
+}
+
+.badge-soft {
+  background-color: rgba(79, 70, 229, 0.1);
+  color: var(--primary);
+  font-weight: 500;
+  border: 1px solid rgba(79, 70, 229, 0.2);
+
+  &.success {
+    background-color: rgba(34, 197, 94, 0.1);
+    color: #22c55e;
+    border-color: rgba(34, 197, 94, 0.2);
+  }
+
+  &.warning {
+    background-color: rgba(234, 179, 8, 0.1);
+    color: #eab308;
+    border-color: rgba(234, 179, 8, 0.2);
+  }
+
+  &.secondary {
+    background-color: rgba(107, 114, 128, 0.1);
+    color: #9ca3af;
+    border-color: rgba(107, 114, 128, 0.2);
+  }
+}
+
+// =====================
+// Form Controls
+// =====================
+.form-control,
+.form-select {
+  background-color: var(--bg-card);
+  border-color: var(--border-color);
+  color: var(--text-main);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+
+  &:focus {
+    background-color: var(--bg-card);
+    color: var(--text-main);
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+    border-color: rgba(79, 70, 229, 0.4);
+  }
+
+  &::placeholder,
+  &::-webkit-input-placeholder,
+  &::-moz-placeholder,
+  &:-ms-input-placeholder {
+    color: var(--text-muted) !important;
+    opacity: 1 !important;
+  }
+
+  &:disabled,
+  &[readonly] {
+    background-color: rgba(255, 255, 255, 0.05); // Slightly lighter than card bg
+    color: var(--text-muted);
+    opacity: 1 !important;
+  }
+
+  &:disabled,
+  &[readonly] {
+    background-color: rgba(255, 255, 255, 0.05); // Slightly lighter than card bg
+    color: var(--text-muted);
+    opacity: 0.8;
+  }
+
+  // Override browser autofill background
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px var(--bg-card) inset !important;
+    -webkit-text-fill-color: var(--text-main) !important;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+}
+
+.input-group-text {
+  background-color: var(--bg-card);
+  border-color: var(--border-color);
+  color: var(--text-muted);
+}
+
+// =====================
+// Tables
+// =====================
+.table {
+  color: var(--text-main);
+
+  :not(caption)>*>* {
+    background-color: transparent; // Let row background be handled by parent or transparent
+    color: var(--text-main);
+    border-bottom-color: var(--border-color);
+  }
+
+  thead {
+    th {
+      background-color: var(--bg-body);
+      color: var(--text-muted);
+      border-bottom: 2px solid var(--border-color);
+    }
+  }
+
+  tbody {
+    tr:hover {
+      color: var(--text-main);
+      background-color: rgba(79, 70, 229, 0.05); // Slight primary tint on hover
+    }
+  }
+}
+
+// =====================
+// Sidebar
+// =====================
+.sidebar-link {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+
+  &:hover,
+  &.active {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+  }
+}
+
+// =====================
+// Modals
+// =====================
+.modal-content {
+  background-color: var(--bg-card);
+  border-color: var(--border-color);
+  color: var(--text-main);
+
+  .modal-header,
+  .modal-footer {
+    border-color: var(--border-color);
+  }
+
+  // .btn-close style relies on default Bootstrap SVG, 
+  // but we invert it in dark mode below
+}
+
+[data-theme='dark'] .btn-close {
+  filter: invert(1) grayscale(100%) brightness(200%);
+}
