@@ -34,7 +34,6 @@ services:
 databases:
   - name: dashboard-db
     plan: free
-    version: "15"
     databaseName: dashboard_db
     user: postgres
 
