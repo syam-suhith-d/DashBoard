@@ -22,10 +22,31 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 /**
- * ✅ CORRECT backend base URL
- * FastAPI is running on 8000
+ * ✅ Dynamic Backend URL configuration
+ * Supports Render environment (NEXT_PUBLIC_API_URL) and local development
  */
-const API_URL = "http://127.0.0.1:8000/api/v1";
+const getApiUrl = () => {
+    let url = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+
+    // If Render passes just the host (e.g., app.onrender.com), prepend https://
+    if (!url.startsWith("http")) {
+        url = `https://${url}`;
+    }
+
+    // Ensure it doesn't have a trailing slash
+    if (url.endsWith("/")) {
+        url = url.slice(0, -1);
+    }
+
+    // Append /api/v1 if missing
+    if (!url.includes("/api/v1")) {
+        url = `${url}/api/v1`;
+    }
+
+    return url;
+};
+
+const API_URL = getApiUrl();
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [user, setUser] = useState<User | null>(null);
